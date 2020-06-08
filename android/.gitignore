@@ -5,10 +5,5 @@ gradle-wrapper.jar
 /gradlew.bat
 /local.properties
 GeneratedPluginRegistrant.java
-<<<<<<< HEAD
-.app/src/main/AndroidManifest.xml
-.app/src/google-services.json
-=======
-.android/app/src/main/AndroidManifest.xml
-.android/app/src/google-services.json
->>>>>>> d959e853fd3320dec74220f28bb8c7d2eb861de3
+/app/src/main/AndroidManifest.xml
+/app/src/google-services.json
