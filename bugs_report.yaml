@@ -1,0 +1,21 @@
+app:
+  - requests.dart shows the different ride requests by students.
+  - driver_registrstion.dart is the page for drivers to register.
+  - driver.dart shows the profile of a driver available for pickup
+  - map.dart shows the map and the form for requesting ride.
+  - ride_request.dart makes post request to flask api.
+  - user.dart makes a post request to the flask api.
+  - checking if it changes.
+
+
+
+
+bugs:
+  - validating forms, not allow submission if fields are empty (fixed with alert box)
+  - Firebase Initialise app error
+  - escaping login page after log in (fixed with shared preferences -- https://stackoverflow.com/questions/52831605/flutter-shared-preferences/54031842#54031842) 
+  - insufficient space to store list in sharedpreferences(idea--clear cache in app on the emulator--worked)
+  - use post request for API
+  - messages to driver upon new request
+  
+
