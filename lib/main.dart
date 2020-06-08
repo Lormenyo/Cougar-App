@@ -2,7 +2,7 @@ import 'package:cougar/driver.dart';
 import 'package:cougar/requests.dart';
 import 'package:flutter/material.dart';
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
-// import 'package:location/location.dart';
+import 'offcampus.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'driver_registration.dart';
 import 'map.dart';
@@ -10,6 +10,7 @@ import 'student_register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './service/service_locator.dart';
 import 'welcome.dart';
+import 'report.dart';
 
 
 
@@ -17,8 +18,8 @@ void main() {
    setupLocator();
   runApp(new MaterialApp(
     debugShowCheckedModeBanner: false,
-    home:    MyMap(),       //new MyApp(),
-        title: 'Cougar',
+    home: new MyApp(),
+        title: 'Kugar',
         theme: ThemeData(
           primarySwatch: Colors.amber,
           // backgroundColor: Colors.white
@@ -31,8 +32,8 @@ void main() {
           "/Requests": (BuildContext context) => new Requests(),
           "/DriverProfile": (BuildContext context) => new DriverProfile(),
           "/Welcome": (BuildContext context) => new Welcome(),
-          // "/PaymentMethods": (BuildContext context) => new PaymentMethods(),
-          // "/Dashboard": (BuildContext context) => new Dashboard(),
+          "/OffCampus": (BuildContext context) => new OffCampus(),
+          "/Report": (BuildContext context) => new Report(),
           // "/Visa": (BuildContext context) => new Visa() 
         }
         
@@ -66,12 +67,12 @@ class _MyAppState extends State<MyApp> {
     print(userLoggedIn);
     return new SplashScreen(
       seconds: 5,
-      navigateAfterSeconds: userLoggedIn == '1' ?  new Welcome() : userLoggedIn == '2' ?  new Requests(): new Welcome(),    //new AfterSplash(),
+      navigateAfterSeconds: userLoggedIn == '1' ?  new Welcome() : userLoggedIn == '2' ?  new Requests(): new AfterSplash(),
       //  if userLogged ==1 , then student is logged in
       // if userLogged == 2, then driver is logged in
       // if userlogged == 0 , then no user is logged in
       title: new Text(
-        'COUGAR',
+        'KUGAR',
         textAlign: TextAlign.center,
         style: new TextStyle(
           letterSpacing: 2.1,
@@ -112,7 +113,7 @@ class AfterSplash extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MyHomePage(title: 'Cougar');   
+    return MyHomePage(title: 'Kugar');   
   }
 }
   
@@ -149,8 +150,9 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: <Widget>[
               Center(
-                child: Text("Cougar",
+                child: Text("Kugar",
                     style: TextStyle(
+                      letterSpacing: 3.0,
                         fontWeight: FontWeight.bold,
                         fontSize: 30.0,
                         color: Colors.white)),

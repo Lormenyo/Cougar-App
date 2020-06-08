@@ -1,51 +1,28 @@
-import "package:flutter/material.dart";
-import "package:http/http.dart" as http;
-import 'package:url_launcher/url_launcher.dart';
-import 'package:getflutter/getflutter.dart';
-import "dart:convert";
+// List of registered taxi drivers
+
+import 'package:flutter/material.dart';
 import 'dart:async';
 import './service/service_locator.dart';
 import './service/call_service.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:getflutter/getflutter.dart';
+import "package:http/http.dart" as http;
+import "dart:convert";
+
 
 StreamController<Future<List<dynamic>>> streamController =
     new StreamController();
 
-class Requests extends StatefulWidget {
-  _RequestState createState() => new _RequestState();
+class OffCampus extends StatefulWidget{
+  @override 
+  _OffCampus createState () => new _OffCampus();
 }
 
-class _RequestState extends State<Requests> {
+class _OffCampus extends State<OffCampus> {
+
   final String url = 'https://kugar.herokuapp.com/getRideRequest';
   List data;
   final CallService _service = locator<CallService>();
-  int number = 1;
- 
-
-  @override
-  void initState() {
-    super.initState();
-
-    streamController.add(this.getJsonData());
-    print("code controller is here");
-
-    print("Creating a StreamController...");
-    streamController.stream.listen((data) {
-      return data;
-    }, onDone: () {
-      print("Task Done");
-    }, onError: (error) {
-      print("Some Error");
-    });
-
-    final duration = Duration(seconds: number);
-    Timer.periodic(duration, (Timer t) => streamController.add(this.getJsonData()));
-  }
-
-  @override
-  void dispose() {
-    streamController.close(); //Streams must be closed when not needed
-    super.dispose();
-  }
 
   Future<List> getJsonData() async {
     var response = await http.get(
@@ -63,11 +40,12 @@ class _RequestState extends State<Requests> {
 
   @override
   Widget build(BuildContext context) {
-    //
-
+    getJsonData().then((value){
+          data = value;
+    });
     return Scaffold(
       appBar: AppBar(
-        title: new Text("Ride Requests"),
+        title: new Text("Get A Driver"),
       ),
       body: new ListView.builder(
         itemCount: data == null ? 0 : data.length,
@@ -80,6 +58,7 @@ class _RequestState extends State<Requests> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   GFListTile(
+                    avatar:GFAvatar(),
                     color: Colors.white60,
                     titleText: data[index]['name'],
                     subtitleText: data[index]['currentLocation'].toString() +
@@ -88,14 +67,7 @@ class _RequestState extends State<Requests> {
                     icon: GFIconButton(
                       color: GFColors.WARNING,
                       icon: Icon(Icons.phone),
-                      onPressed: () => /* showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Callme(
-                            number: data[index]['phoneNumber'],
-                          );
-                        },
-                      ), */
+                      onPressed: () => 
                       _service.call(data[index]['phoneNumber']),
                       padding: EdgeInsets.all(10.0),
                     ),
@@ -110,15 +82,3 @@ class _RequestState extends State<Requests> {
   }
   void call(String number) => launch("tel:$number");
 }
-
-// class Callme extends StatelessWidget {
-//   Callme({this.number});
-//   final String number;
-  
-//   @override
-//   Widget build(BuildContext context) {
-//     return AlertDialog(
-//       title: Text(number),
-//     );
-//   }
-// }
