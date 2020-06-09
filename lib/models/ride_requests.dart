@@ -43,16 +43,16 @@ class RideRequest {
     }
     catch (e){
       print(e);
-     url = 'https://kugar.herokuapp.com/rideRequest';
+    //  url = 'https://kugar.herokuapp.com/rideRequest';
     
-    http.Response response = await http.post(url, body: {
-      'firstName': request['firstName'],
-      'phoneNumber':request['phoneNumber'],
-      'currentLocation': request['currentLocation'],
-      'destination': request['destination']
-    });
-    print('saving user using a web service');
-    return response.body;
+    // http.Response response = await http.post(url, body: {
+    //   'firstName': request['firstName'],
+    //   'phoneNumber':request['phoneNumber'],
+    //   'currentLocation': request['currentLocation'],
+    //   'destination': request['destination']
+    // });
+    // print('saving user using a web service');
+    // return response.body;
     }
   }
 }

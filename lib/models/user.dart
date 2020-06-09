@@ -42,10 +42,12 @@ class User {
     }
     catch (e){
       print(e);
-      url = 'https://kugar.herokuapp.com/api?firstName=Hannah&phoneNumber=233266180856';
-    http.Response response = await http.get(url);
-    print('saving user using a web service');
-    return response.body;
+
+      
+    //   url = 'https://kugar.herokuapp.com/api?firstName=Hannah&phoneNumber=233266180856';
+    // http.Response response = await http.get(url);
+    // print('saving user using a web service');
+    // return response.body;
     }
   }
 }

@@ -172,9 +172,14 @@ class _MyAppState extends State<MyMap> {
                         elevation: 7.0,
                         child: GestureDetector(
                             onTap: () {
-                              //print('$source  $destination'); */
+                              try {
                               rideRequest.save();
                               Navigator.of(context).pushNamed("/DriverProfile");
+                              }
+                              catch(e){
+                                print(e);
+                              }
+
                             },
                             child: Container(
                                 padding: EdgeInsets.all(10.0),
