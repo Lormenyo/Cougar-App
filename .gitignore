@@ -41,6 +41,6 @@ lib/generated_plugin_registrant.dart
 .backend/
 
 # manifest files
-.android/app/src/main/AndroidManifest.xml
+android/app/src/main/AndroidManifest.xml
 
-.android/app/src/google-services.json
+android/app/src/google-services.json

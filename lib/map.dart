@@ -174,7 +174,9 @@ class _MyAppState extends State<MyMap> {
                             onTap: () {
                               try {
                               rideRequest.save();
-                              Navigator.of(context).pushNamed("/DriverProfile");
+                              Navigator.of(context).pushNamed("/DriverProfile",
+                              arguments: DriverScreenArguments(rideRequest.request['currentLocation'],rideRequest.request['destination'])
+                              );
                               }
                               catch(e){
                                 print(e);
@@ -227,4 +229,12 @@ class CurvePainter extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) {
     return true;
   }
+}
+
+
+class DriverScreenArguments{
+  final String currentLocation;
+  final String destination;
+
+  DriverScreenArguments(this.currentLocation, this.destination);
 }

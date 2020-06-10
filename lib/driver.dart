@@ -1,13 +1,45 @@
 import "package:flutter/material.dart";
+import 'map.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class DriverProfile extends StatefulWidget {
   _DriverProfileState createState() => new _DriverProfileState();
 }
 
+
+
 class _DriverProfileState extends State<DriverProfile> {
+  List data;
+  
+
+
+    Future<List> getJsonData(url) async {
+    var response = await http.get(
+        // encode the url to remove spaces
+        Uri.encodeFull(url),
+        // Accept only json data
+        headers: {"Accept": "application/json"});
+    // print(response.body);
+    setState(() {
+      var convertDataToJson = jsonDecode(response.body);
+      data = convertDataToJson['RideDetails'];
+    });
+    return data;
+  }
+
   @override
   Widget build(BuildContext context) {
-    //
+
+    final DriverScreenArguments args = ModalRoute.of(context).settings.arguments;
+    final from = args.currentLocation;
+    final to = args.destination;
+    final String url = "https://kugar.herokuapp.com/getRideRequest?currentLocation=$from&destination=$to";
+
+    getJsonData(url).then((value){
+      data = value;
+    });
 
     return Scaffold(
         body: new Stack(
