@@ -43,4 +43,4 @@ lib/generated_plugin_registrant.dart
 # manifest files
 android/app/src/main/AndroidManifest.xml
 
-android/app/src/google-services.json
+android/app/google-services.json
