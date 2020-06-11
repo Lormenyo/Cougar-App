@@ -18,7 +18,7 @@ void main() {
    setupLocator();
   runApp(new MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: new MyApp(),
+    home: MyApp(),
         title: 'Kugar',
         theme: ThemeData(
           primarySwatch: Colors.amber,

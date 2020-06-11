@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class MyMap extends StatefulWidget {
   @override
@@ -16,6 +18,7 @@ class _MyAppState extends State<MyMap> {
   String phoneNumber;
   String user;
   final rideRequest = RideRequest();
+
 
   //  GoogleMapController mapController;
 
@@ -103,6 +106,7 @@ class _MyAppState extends State<MyMap> {
                   setState(() {
                     rideRequest.request['currentLocation'] = newValue;
                     source = newValue;
+                    // from = rideRequest.request['currentLocation'];
                   });
                 },
                 items: <String>[
@@ -137,6 +141,8 @@ class _MyAppState extends State<MyMap> {
                   setState(() {
                     rideRequest.request['destination'] = newValue;
                     destination = newValue;
+                    // to = rideRequest.request['destination'];
+                    // url = "https://kugar.herokuapp.com/getRideDetails?currentLocation=$from&destination=$to";
                   });
                 },
                 items: <String>[
@@ -174,8 +180,10 @@ class _MyAppState extends State<MyMap> {
                             onTap: () {
                               try {
                               rideRequest.save();
-                              Navigator.of(context).pushNamed("/DriverProfile",
-                              arguments: DriverScreenArguments(rideRequest.request['currentLocation'],rideRequest.request['destination'])
+                              // getJsonData(url);
+                              _saveRide(rideRequest.request['currentLocation'],rideRequest.request['destination'] );
+                              Navigator.of(context).pushNamed("/DriverProfile"
+                              // arguments: DriverScreenArguments(data)
                               );
                               }
                               catch(e){
@@ -205,6 +213,18 @@ class _MyAppState extends State<MyMap> {
     final value = prefs.getStringList(key);
     return value;
   }
+
+  
+  _saveRide(String from, String to) async {
+        final prefs = await SharedPreferences.getInstance();
+        final key = 'ride';
+        final value = [from, to];
+        // final value = 1;
+        print("value $value");
+        prefs.setStringList(key, value);
+        // prefs.setStringList(key, value);
+        print('saved $value');
+      }
 }
 
 class CurvePainter extends CustomPainter {
@@ -233,8 +253,7 @@ class CurvePainter extends CustomPainter {
 
 
 class DriverScreenArguments{
-  final String currentLocation;
-  final String destination;
+  final List data;
 
-  DriverScreenArguments(this.currentLocation, this.destination);
+  DriverScreenArguments(this.data);
 }

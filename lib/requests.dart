@@ -1,11 +1,13 @@
 import "package:flutter/material.dart";
 import "package:http/http.dart" as http;
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:url_launcher/url_launcher.dart';
 import 'package:getflutter/getflutter.dart';
 import "dart:convert";
 import 'dart:async';
 import './service/service_locator.dart';
 import './service/call_service.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+
 
 StreamController<Future<List<dynamic>>> streamController =
     new StreamController();
@@ -108,7 +110,8 @@ class _RequestState extends State<Requests> {
       ),
     );
   }
-  void call(String number) => launch("tel:$number");
+  // void call(String number) => launch("tel:$number");
+
 }
 
 // class Callme extends StatelessWidget {
