@@ -120,7 +120,7 @@ class _StudentRegister extends State {
                           print("saving the output");
                           print(_user.user['firstName']);
                           _save(_user.user['firstName'], _user.user['phoneNumber']);
-                          Navigator.of(context).pushNamed("/Map");
+                          Navigator.of(context).pushNamed("/Welcome");
                           }
                         },
                         child: Container(

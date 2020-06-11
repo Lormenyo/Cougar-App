@@ -18,7 +18,7 @@ class DriverProfile extends StatefulWidget {
 }
 
 class _DriverProfileState extends State {
-  List data;
+   List data;
    final CallService _service = locator<CallService>();
    String from;
    String to;

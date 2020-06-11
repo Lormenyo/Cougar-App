@@ -10,6 +10,7 @@ class _Report extends State<Report> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff392850),
       body: Center(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -19,7 +20,7 @@ class _Report extends State<Report> {
                 padding: EdgeInsets.only(top: 0.0,bottom: 100.0),
                 child: Text("Make a Report",
                     style: GoogleFonts.openSans(
-                      color: Colors.black,
+                      color: Colors.amber,
                       fontSize: 50.0,
                     ))),
             Container(

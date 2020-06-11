@@ -8,6 +8,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:getflutter/getflutter.dart';
 import "package:http/http.dart" as http;
 import "dart:convert";
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 StreamController<Future<List<dynamic>>> streamController =
@@ -23,6 +25,12 @@ class _OffCampus extends State<OffCampus> {
   final String url = 'https://kugar.herokuapp.com/getRideRequest';
   List data;
   final CallService _service = locator<CallService>();
+
+  @override
+  void initState(){
+    super.initState();
+    this.getJsonData();
+  }
 
   Future<List> getJsonData() async {
     var response = await http.get(
@@ -40,45 +48,86 @@ class _OffCampus extends State<OffCampus> {
 
   @override
   Widget build(BuildContext context) {
-    getJsonData().then((value){
-          data = value;
-    });
-    return Scaffold(
-      appBar: AppBar(
-        title: new Text("Get A Driver"),
+    // getJsonData().then((value){
+    //       data = value;
+    // });
+        if (data == null) {
+      return new Scaffold(
+        backgroundColor: Color(0xff392850),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Center(
+           child: SpinKitWave(
+    itemBuilder: (BuildContext context, int index) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: index.isEven ? Colors.amber: Colors.amber,
       ),
-      body: new ListView.builder(
-        itemCount: data == null ? 0 : data.length,
-        itemBuilder: (BuildContext context, int index) {
-          return new Container(
-            color: Colors.grey[100],
-            child: new Center(
-              child: new Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  GFListTile(
+    );
+  },
+)),
+SizedBox(height: 10.0),
+      Text("Looking for your ride...",
+      style: GoogleFonts.openSans(
+          color: Colors.amber
+      ),)
+            ]  )
+          );
+
+    }
+
+    return Scaffold(
+
+      body: _scrollableView(context)
+    );
+  }
+  void call(String number) => launch("tel:$number");
+
+
+Widget _scrollableView(BuildContext context){
+return CustomScrollView(
+  slivers: <Widget>[
+    SliverAppBar(
+      automaticallyImplyLeading: false,
+      centerTitle: true,
+      elevation: 10.0,
+      // leading: InkWell(
+      //   onTap: (){},
+      //   child:new Container()
+      // ),
+      title: Text("Get A driver",
+      textAlign: TextAlign.center,),
+      pinned: true,
+      expandedHeight: 150,),
+      SliverList(
+        delegate: SliverChildBuilderDelegate((context, index) =>
+           _buildTile(context, data[index]['name'], data[index]["phoneNumber"]),
+           childCount: data == null ? 0 : data.length
+        )
+         
+      ),
+    
+
+  ],
+);
+}
+
+Widget _buildTile(BuildContext context, String name, String phoneNumber){
+  return  GFListTile(
                     avatar:GFAvatar(),
                     color: Colors.white60,
-                    titleText: data[index]['name'],
-                    subtitleText: data[index]['currentLocation'].toString() +
-                        " to " +
-                        data[index]['destination'].toString(),
+                    titleText: name,
+                    subtitleText: "",
                     icon: GFIconButton(
                       color: GFColors.WARNING,
                       icon: Icon(Icons.phone),
                       onPressed: () => 
-                      _service.call(data[index]['phoneNumber']),
+                      _service.call(phoneNumber),
                       padding: EdgeInsets.all(10.0),
                     ),
-                  )
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-  void call(String number) => launch("tel:$number");
+                  );
+}
+
 }
