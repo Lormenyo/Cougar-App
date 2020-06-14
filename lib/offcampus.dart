@@ -93,12 +93,23 @@ return CustomScrollView(
       automaticallyImplyLeading: false,
       centerTitle: true,
       elevation: 10.0,
-      // leading: InkWell(
-      //   onTap: (){},
-      //   child:new Container()
-      // ),
-      title: Text("Get A driver",
-      textAlign: TextAlign.center,),
+      flexibleSpace: FlexibleSpaceBar(
+                    centerTitle: true,
+                    title: Text("Get a Driver",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                        )),
+                    background: Image.asset(
+                      "assets/images/cougar-c.jpg",
+                      fit: BoxFit.cover,
+                      // color: Colors.black,
+                    )),
+      // title: Text("Get A driver",
+      // textAlign: TextAlign.center,
+      // style: GoogleFonts.openSans(
+      //   color: Colors.white
+      // ),),
       pinned: true,
       expandedHeight: 150,),
       SliverList(
