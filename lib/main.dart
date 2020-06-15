@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
         print(e);
       }
     });
-    print(userLoggedIn);
+    // print(userLoggedIn);
     return new SplashScreen(
       seconds: 5,
       navigateAfterSeconds: userLoggedIn == '1' ?  new Welcome() : userLoggedIn == '2' ?  new Requests(): new AfterSplash(),

@@ -50,6 +50,7 @@ class _StudentRegister extends State {
             child: Column(
               children: <Widget>[
                 TextFormField(
+                  keyboardType: TextInputType.text,
                   autovalidate: false,
                   validator: (value) {
                     if (value.isEmpty)
@@ -58,8 +59,8 @@ class _StudentRegister extends State {
                     // setState(() => _user.user['firstName'] = value);
                       return null;
                   },
-                  onChanged: (val) =>
-                      setState(() => _user.user['firstName'] = val),
+                  onChanged: (val){
+                      setState(() => _user.user['firstName'] = val);},
                   cursorColor: Colors.amber,
                   decoration: InputDecoration(
                       labelText: "FIRST NAME",
@@ -72,6 +73,7 @@ class _StudentRegister extends State {
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
+                  keyboardType: TextInputType.number,
                   autovalidate:false,
                   validator: (value) {
                     if (value.isEmpty)
@@ -80,9 +82,8 @@ class _StudentRegister extends State {
                     // setState(() => _user.user['phoneNumber'] = value);
                       return null;
                   },
-                  onChanged: (val) =>
-                      setState(() => _user.user['phoneNumber'] = val),
-                  keyboardType: TextInputType.number,
+                  onChanged: (val){
+                      setState(() => _user.user['phoneNumber'] = val);},
                   cursorColor: Colors.amber,
                   decoration: InputDecoration(
                       labelText: "PHONE NUMBER",
