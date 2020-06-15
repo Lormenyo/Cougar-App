@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:cougar/models/ride_requests.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -65,6 +67,17 @@ class _MyAppState extends State<MyMap> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
+          floatingActionButton: Platform.isIOS ? Padding(
+            padding: EdgeInsets.only(left:50, bottom: 40),
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: FloatingActionButton(
+                backgroundColor: Colors.amber,
+                onPressed: ()=> Navigator.of(context).pop(),
+                child: Icon(Icons.arrow_back_ios),
+              ),
+            )
+          ) : null,
             body: Stack(
               children: <Widget>[
               Container(

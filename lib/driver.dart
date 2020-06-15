@@ -1,8 +1,10 @@
 import "package:flutter/material.dart";
 import 'package:getflutter/components/avatar/gf_avatar.dart';
 import 'package:getflutter/getflutter.dart';
+
 // import 'package:getflutter/getflutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 // import 'map.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -11,37 +13,35 @@ import './service/service_locator.dart';
 import './service/call_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
+import 'dart:io' show Platform;
 
 class DriverProfile extends StatefulWidget {
   _DriverProfileState createState() => new _DriverProfileState();
 }
 
 class _DriverProfileState extends State {
-   List data;
-   final CallService _service = locator<CallService>();
-   String from;
-   String to;
-   String fare;
-
+  List data;
+  final CallService _service = locator<CallService>();
+  String from;
+  String to;
+  String fare;
 
   @override
   void initState() {
     super.initState();
- 
+
     this.getJsonData();
   }
-
 
   Future<List> getJsonData() async {
     // final from = "Tanko";
     // final to = "Dufie/Hosanna";
     final prefs = await SharedPreferences.getInstance();
     final key = 'ride';
-   final value = prefs.getStringList(key);
-    setState((){
-       from = value[0];
-        to = value[1];
+    final value = prefs.getStringList(key);
+    setState(() {
+      from = value[0];
+      to = value[1];
     });
 
     final String url =
@@ -70,32 +70,37 @@ class _DriverProfileState extends State {
     // final DriverScreenArguments args = ModalRoute.of(context).settings.arguments
     if (data == null) {
       return new Scaffold(
-        backgroundColor: Color(0xff392850),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Center(
-           child: SpinKitWave(
-  itemBuilder: (BuildContext context, int index) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: index.isEven ? Colors.amber: Colors.amber,
-      ),
-    );
-  },
-)),
-SizedBox(height: 10.0),
-      Text("Looking for your ride...",
-      style: GoogleFonts.openSans(
-          color: Colors.amber
-      ),)
-            ]  )
-          );
-
+          backgroundColor: Color(0xff392850),
+          body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Center(child: SpinKitWave(
+                  itemBuilder: (BuildContext context, int index) {
+                    return DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: index.isEven ? Colors.amber : Colors.amber,
+                      ),
+                    );
+                  },
+                )),
+                SizedBox(height: 10.0),
+                Text(
+                  "Looking for your ride...",
+                  style: GoogleFonts.openSans(color: Colors.amber),
+                )
+              ]));
     }
-   
+
     return new Scaffold(
+        appBar: Platform.isIOS
+            ? AppBar(
+                automaticallyImplyLeading: true,
+                backgroundColor: Color(0xff392850),
+                elevation: 0,
+                iconTheme: IconThemeData(color: Colors.white, opacity: 1),
+              )
+            : null,
         backgroundColor: Color(0xff392850),
         body: new Stack(
           children: <Widget>[
@@ -133,33 +138,32 @@ SizedBox(height: 10.0),
                                 SizedBox(height: 10.0),
                                 Center(
                                   child: Container(
-                                    width: 150.0,
-                                      decoration:
-                                          BoxDecoration(
-                                            color: Colors.amber,
-                                            borderRadius: BorderRadius.all(Radius.circular(7.0))),
-                                      child: 
-                                      
-                                      InkWell(
+                                      width: 150.0,
+                                      decoration: BoxDecoration(
+                                          color: Colors.amber,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(7.0))),
+                                      child: InkWell(
                                         child: Row(
-                                        // mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                        GFIconButton(
-                                          color: GFColors.WARNING,
-                                          icon: Icon(Icons.phone),
-                                          onPressed: () => {},
-                                        ),
-                                        Text(
-                                          data[0][index][1],
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      ]),
-                                      onTap: () {
-                                        _service.call(data[0][index][1]);
-                                      },
+                                            // mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              GFIconButton(
+                                                color: GFColors.WARNING,
+                                                icon: Icon(Icons.phone),
+                                                onPressed: () => {},
+                                              ),
+                                              Text(
+                                                data[0][index][1],
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 15.0,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            ]),
+                                        onTap: () {
+                                          _service.call(data[0][index][1]);
+                                        },
                                       )),
                                 )
                               ],
@@ -167,46 +171,50 @@ SizedBox(height: 10.0),
                       })),
             ),
             Positioned(
-              bottom: MediaQuery.of(context).size.height*0.22,
-              left: 10.0,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width*0.95,
-                height: 70.0,
-                child: 
-                Container(
-                  height: 80.0,
-                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                  child: ListTile(
-                        leading: Icon(Icons.euro_symbol, size: 50),
-                        title: Text("GHC $fare"),
-                        subtitle: Text('Pay in Cash'),
-                      )))),
-
-                    Positioned(
-                   bottom: MediaQuery.of(context).size.height*0.10,
-                   left: 10.0,
-                  //  right: 20.0,
-                  height: 40.0,
-                  width: MediaQuery.of(context).size.height*0.50,
-                  child: Material(
-                    borderRadius: BorderRadius.circular(20.0),
-                    shadowColor: Colors.amberAccent,
-                    color: Colors.amber,
-                    elevation: 7.0,
-                    child: GestureDetector(
-                      onTap: () => {
-
-                      },
-                      child: Container(
-                            padding: EdgeInsets.all(10.0),
-                            child: Text("CONFIRM PICK UP",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold)))
-                    )
-                  ))          
+                bottom: MediaQuery.of(context).size.height * 0.22,
+                left: 10.0,
+                child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.95,
+                    height: 70.0,
+                    child: Container(
+                        height: 80.0,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5.0))),
+                        child: ListTile(
+                          leading: Icon(Icons.euro_symbol, size: 50),
+                          title: Text("GHC $fare"),
+                          subtitle: Text('Pay in Cash'),
+                        )))),
+            Positioned(
+                bottom: MediaQuery.of(context).size.height * 0.10,
+                left: 80.0,
+//                  right: 10.0,
+                height: 40.0,
+                width: MediaQuery.of(context).size.height * 0.30,
+                child: GestureDetector(
+                    onTap: () => {},
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 2,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: Colors.amber,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.amber,
+                              offset: Offset(0.0, 1.0), //(x,y)
+                              blurRadius: 6.0,
+                            ),
+                          ],
+                        ),
+                        padding: EdgeInsets.all(10.0),
+                        child: Text("CONFIRM PICK UP",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold)))))
           ],
         ));
   }

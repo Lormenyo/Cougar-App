@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'models/user.dart';
+import 'dart:io' show Platform;
+
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentRegister extends StatefulWidget {
   // FirebaseApp app;
-  
+
   @override
   _StudentRegister createState() => _StudentRegister();
 }
@@ -16,6 +18,11 @@ class _StudentRegister extends State {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      appBar: Platform.isIOS
+          ? AppBar(
+              automaticallyImplyLeading: true,
+            )
+          : null,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -56,11 +63,12 @@ class _StudentRegister extends State {
                     if (value.isEmpty)
                       return 'Please enter your first name.';
                     else
-                    // setState(() => _user.user['firstName'] = value);
+                      // setState(() => _user.user['firstName'] = value);
                       return null;
                   },
-                  onChanged: (val){
-                      setState(() => _user.user['firstName'] = val);},
+                  onChanged: (val) {
+                    setState(() => _user.user['firstName'] = val);
+                  },
                   cursorColor: Colors.amber,
                   decoration: InputDecoration(
                       labelText: "FIRST NAME",
@@ -74,16 +82,17 @@ class _StudentRegister extends State {
                 SizedBox(height: 20.0),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  autovalidate:false,
+                  autovalidate: false,
                   validator: (value) {
                     if (value.isEmpty)
                       return 'Please enter your phone number.';
                     else
-                    // setState(() => _user.user['phoneNumber'] = value);
+                      // setState(() => _user.user['phoneNumber'] = value);
                       return null;
                   },
-                  onChanged: (val){
-                      setState(() => _user.user['phoneNumber'] = val);},
+                  onChanged: (val) {
+                    setState(() => _user.user['phoneNumber'] = val);
+                  },
                   cursorColor: Colors.amber,
                   decoration: InputDecoration(
                       labelText: "PHONE NUMBER",
@@ -105,28 +114,28 @@ class _StudentRegister extends State {
                     elevation: 7.0,
                     child: GestureDetector(
                         onTap: () {
-
-                            if  (_user.user['firstName'] == null ||
-                              _user.user['phoneNumber'] == null ) {
+                          if (_user.user['firstName'] == null ||
+                              _user.user['phoneNumber'] == null) {
                             _showDialog();
-                          }
-                          else if (_user.user['firstName'].isEmpty ||
+                          } else if (_user.user['firstName'].isEmpty ||
                               _user.user['phoneNumber'].isEmpty) {
                             _showDialog();
-                          }
-                        else {
-                         setState(() => _user.user['typeOfUser'] = 'student');
-                          setState(() => _user.user['code'] = 0000.toString());
-                          _user.save();
-                          print("saving the output");
-                          print(_user.user['firstName']);
-                          _save(_user.user['firstName'], _user.user['phoneNumber']);
-                          Navigator.of(context).pushNamed("/Welcome");
+                          } else {
+                            setState(
+                                () => _user.user['typeOfUser'] = 'student');
+                            setState(
+                                () => _user.user['code'] = 0000.toString());
+                            _user.save();
+                            print("saving the output");
+                            print(_user.user['firstName']);
+                            _save(_user.user['firstName'],
+                                _user.user['phoneNumber']);
+                            Navigator.of(context).popAndPushNamed("/Welcome");
                           }
                         },
                         child: Container(
                             padding: EdgeInsets.all(10.0),
-                            child: Text("SIGN UP",
+                            child: Text("WELCOME",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -140,12 +149,9 @@ class _StudentRegister extends State {
         ],
       ),
     );
-
-
   }
 
-  
-    // user defined function
+  // user defined function
   void _showDialog() {
     // flutter defined function
     showDialog(
@@ -154,8 +160,9 @@ class _StudentRegister extends State {
         // return object of type Dialog
         return AlertDialog(
           title: new Text("Invalid or Empty Input"),
-          content: new Text("Enter your First Name and phone Number", 
- /*          style: TextStyle(
+          content: new Text(
+            "Enter your First Name and phone Number",
+            /*          style: TextStyle(
             fontFamily: 'Sa'
           ), */
           ),
@@ -173,17 +180,14 @@ class _StudentRegister extends State {
     );
   }
 
-
-      _save(String firstName, String phoneNumber) async {
-        final prefs = await SharedPreferences.getInstance();
-        final key = 'isLoggedIn';
-        final value = ['1', firstName, phoneNumber];
-        // final value = 1;
-        print("value $value");
-        prefs.setStringList(key, value);
-        // prefs.setStringList(key, value);
-        print('saved $value');
-      }
+  _save(String firstName, String phoneNumber) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'isLoggedIn';
+    final value = ['1', firstName, phoneNumber];
+    // final value = 1;
+    print("value $value");
+    prefs.setStringList(key, value);
+    // prefs.setStringList(key, value);
+    print('saved $value');
+  }
 }
-
-

@@ -10,7 +10,7 @@ import "package:http/http.dart" as http;
 import "dart:convert";
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'dart:io' show Platform;
 
 StreamController<Future<List<dynamic>>> streamController =
     new StreamController();
@@ -90,7 +90,7 @@ Widget _scrollableView(BuildContext context){
 return CustomScrollView(
   slivers: <Widget>[
     SliverAppBar(
-      automaticallyImplyLeading: false,
+      automaticallyImplyLeading: Platform.isIOS,
       centerTitle: true,
       elevation: 10.0,
       flexibleSpace: FlexibleSpaceBar(

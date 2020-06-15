@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:io' show Platform;
 
 class Report extends StatefulWidget {
   @override
@@ -10,6 +11,12 @@ class _Report extends State<Report> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: Platform.isIOS ? AppBar(
+        automaticallyImplyLeading: true,
+        backgroundColor: Color(0xff392850),
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white, opacity: 1),
+      ) : null,
       backgroundColor: Color(0xff392850),
       body: Center(
         child: Column(

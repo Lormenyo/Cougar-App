@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io' show Platform;
+
 
 class DriverRegister extends StatefulWidget {
   // FirebaseApp app;
@@ -15,6 +17,9 @@ class _DriverRegister extends State {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      appBar: Platform.isIOS ? AppBar(
+        automaticallyImplyLeading: true,
+      ) : null,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -147,12 +152,12 @@ class _DriverRegister extends State {
                             print("saving the output");
                             print(_user.user['firstName']);
                             _save(_user.user['firstName'], _user.user['phoneNumber']);
-                            Navigator.of(context).pushNamed("/Requests");
+                            Navigator.of(context).popAndPushNamed("/Requests");
                           }
                         },
                         child: Container(
                             padding: EdgeInsets.all(10.0),
-                            child: Text("SIGN UP",
+                            child: Text("WELCOME",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.white,
