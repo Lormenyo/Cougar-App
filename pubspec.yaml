@@ -37,6 +37,8 @@ dependencies:
   awesome_loader: ^0.0.3
   google_fonts: ^1.0.0
   flutter_spinkit: ^4.1.2
+  #firebase cloud messaging
+  firebase_messaging: ^6.0.16
 
 
 dev_dependencies:

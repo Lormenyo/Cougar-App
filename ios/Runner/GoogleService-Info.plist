@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>45941138720-mf44293lqmegn3h1sj1lv8kbi8a2e1dk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.45941138720-mf44293lqmegn3h1sj1lv8kbi8a2e1dk</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>45941138720-fm29r090sb529033ro6ermqtb9mkcqnh.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAwz0rzNZoYIsxFCTs6W-lc37xziGJFmpg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>45941138720</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.kugar.kugar</string>
+	<key>PROJECT_ID</key>
+	<string>cougar-96a8a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>cougar-96a8a.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:45941138720:ios:1cf4d8c90c1386c2992345</string>
+	<key>DATABASE_URL</key>
+	<string>https://cougar-96a8a.firebaseio.com</string>
+</dict>
+</plist>
